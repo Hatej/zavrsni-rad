@@ -1,0 +1,1 @@
+export const secret = "tajni_kljuc_zavrsni";
