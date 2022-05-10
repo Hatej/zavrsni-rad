@@ -71,6 +71,7 @@ export function signin(req, res) {
           id: user.id,
           username: user.username,
           email: user.email,
+          pfp: user.profilePicture,
           roles: authorities,
           accessToken: token
         });
