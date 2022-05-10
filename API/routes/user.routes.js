@@ -1,7 +1,8 @@
 import middleware from "../middleware/index.js";
 const authJwt = middleware.authJwt;
-import { allAccess, userBoard, moderatorBoard, adminBoard } from "../controllers/user.controller.js";
+import { allAccess, userBoard, moderatorBoard, adminBoard, getPfp } from "../controllers/user.controller.js";
 export default function(app) {
+
   app.use(function(req, res, next) {
     res.header(
       "Access-Control-Allow-Headers",
@@ -9,6 +10,9 @@ export default function(app) {
     );
     next();
   });
+
+  app.get("/user/pfp/:username", getPfp);
+
   app.get("/test/all", allAccess);
   app.get(
     "/test/user",
