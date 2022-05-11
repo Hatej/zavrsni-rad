@@ -9,6 +9,7 @@ function User(props){
         <div>
             User
             <Image endpoint="/user/pfp/" username={name} />
+            <Image endpoint="/user/background/" username={name} />
         </div>
     );
 }

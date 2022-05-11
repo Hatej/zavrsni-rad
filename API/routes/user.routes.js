@@ -1,6 +1,6 @@
 import middleware from "../middleware/index.js";
 const authJwt = middleware.authJwt;
-import { allAccess, userBoard, moderatorBoard, adminBoard, getPfp } from "../controllers/user.controller.js";
+import { getPfp, getBackgroundPicture } from "../controllers/user.controller.js";
 export default function(app) {
 
   app.use(function(req, res, next) {
@@ -13,6 +13,9 @@ export default function(app) {
 
   app.get("/user/pfp/:username", getPfp);
 
+  app.get("/user/background/:username", getBackgroundPicture);
+
+  /*
   app.get("/test/all", allAccess);
   app.get(
     "/test/user",
@@ -29,4 +32,5 @@ export default function(app) {
     [authJwt.verifyToken, authJwt.isAdmin],
     adminBoard
   );
+  */
 };

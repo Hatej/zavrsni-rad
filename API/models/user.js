@@ -12,6 +12,10 @@ export default (sequelize, Sequelize) => {
       profile_picture: {
         type: Sequelize.STRING,
         defaultValue: "default.png"  
+      },
+      background_picture: {
+        type: Sequelize.STRING,
+        defaultValue: "default.jpg"  
       }
     });
     return User;

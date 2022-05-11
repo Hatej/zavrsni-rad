@@ -3,6 +3,7 @@ import pkg from 'body-parser';
 import cors from 'cors';
 import auth_route from './routes/auth.routes.js';
 import user_route from './routes/user.routes.js';
+import post_route from './routes/post.routes.js';
 
 const { urlencoded, json } = pkg;
 
@@ -41,6 +42,7 @@ function initial() {
 
 auth_route(app);
 user_route(app);
+post_route(app);
 
 app.get('/', (request, response) => {
     console.log("GET");
