@@ -1,0 +1,7 @@
+<div class="flex comment">
+    <app-image [endpoint]="'/user/pfp/'.concat(this.username)" className="comment-picture"></app-image>&nbsp;
+    <div>
+        <a [href]="'/user/'.concat(this.username)">{{username}}</a>
+        <p class="comment-content" >{{content}}</p>
+    </div>
+</div>

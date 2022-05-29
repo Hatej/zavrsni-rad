@@ -1,0 +1,66 @@
+<div class="flex flex-col-reverse md:flex-row md:min-h-screen">
+    <div class="left_side basis-9/12 mt-8">
+        <div class="flex justify-center">
+            <app-image [endpoint]="'/post/getPostPicture/'.concat(postId)" className="post-picture"></app-image>
+        </div>
+        <br/>
+        <hr class="comment_separator" />
+        <ng-container *ngIf="!loading">
+            <div class="add-comment-container">
+                <ng-container *ngIf="isLoggedIn">
+                    <div class="flex add-comment-form">
+                        <app-image [endpoint]="'/user/pfp/'.concat(currentUser.username)" className="profile_picture comment-picture"></app-image>
+                        <form (ngSubmit)="submit()" #f="ngForm" class="w-4/5" name="form">
+                            <div class="flex items-center border-b border-zinc-600 py-2">
+                            <textarea 
+                                [(ngModel)]="form.newComment"
+                                #newComment="ngModel"
+                                type="text"
+                                name="comment"
+                                (input)="auto_grow"
+                                class="appearance-none bg-transparent border-none w-full h-7 text-[#f2f4f3] mr-3 py-1 px-2 leading-tight resize-none overflow-hidden"
+                                aria-label="Full name" 
+                                placeholder="Comment..."
+                            ></textarea>
+                            <button class="flex-shrink-0 bg-[#2a9fd6] hover:bg-[#0b73a0] border-[#2a9fd6] hover:border-[#0b73a0] text-sm border-4 text-white py-1 px-2 rounded" type="submit">
+                                Comment
+                            </button>
+                            </div>
+                        </form>
+                    </div>
+                </ng-container>
+                <ng-container *ngIf="comments.length !== 0">
+                    <div class="comments-container">
+                        <app-comment
+                            *ngFor="let comment of comments;"
+                            [username]="comment.user.username"
+                            [content]="comment.content"
+                        >
+                        </app-comment>
+                    </div>
+                </ng-container>
+            </div>
+        </ng-container>
+    </div>
+    <ng-container *ngIf="!loading">
+        <div class="right-side basis-3/12 px-4">
+            <div class="flex mt-6">
+                <app-image [endpoint]="'/user/pfp/'.concat(post.user.username)" className="profile_picture small mr-2"></app-image>&nbsp;
+                <a [href]="'/user/'.concat(post.user.username)" class="text-2xl link">{{post.user.username}}</a>
+            </div>
+            <div class="mb-2 pb-2 description">
+                <p class="text-2xl">{{post.name}}</p>
+                <p class="text-zinc-400">{{post.description}}</p>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="hidden md:block">
+                    <span class="text-2xl">More by</span> &nbsp; <a [href]="'/user/'.concat(post.user.username)" class="new-link text-2xl">{{post.user.username}}</a>
+                </div>
+                <div class="hidden md:block">
+                    <app-posts from="user" [username]="post.user.username" [number]="number" [currentPost]="postId"></app-posts>
+                </div>
+            </div>
+        </div>
+    </ng-container>
+    
+</div>

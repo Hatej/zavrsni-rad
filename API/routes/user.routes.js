@@ -1,6 +1,6 @@
-import middleware from "../middleware/index.js";
-const authJwt = middleware.authJwt;
-import { getPfp, getBackgroundPicture } from "../controllers/user.controller.js";
+import { getPfp, getBackgroundPicture, setPfp, setBackgroundPicture, getUserInfo } from "../controllers/user.controller.js";
+import { pfp_upload, background_upload } from "../config/multer.config.js";
+
 export default function(app) {
 
   app.use(function(req, res, next) {
@@ -11,26 +11,16 @@ export default function(app) {
     next();
   });
 
+  app.get("/user/getInfo/:username", getUserInfo);
+
   app.get("/user/pfp/:username", getPfp);
 
   app.get("/user/background/:username", getBackgroundPicture);
 
-  /*
-  app.get("/test/all", allAccess);
-  app.get(
-    "/test/user",
-    [authJwt.verifyToken],
-    userBoard
-  );
-  app.get(
-    "/test/mod",
-    [authJwt.verifyToken, authJwt.isModerator],
-    moderatorBoard
-  );
-  app.get(
-    "/test/admin",
-    [authJwt.verifyToken, authJwt.isAdmin],
-    adminBoard
-  );
-  */
+  app.post("/user/setPfp/", pfp_upload.single('image'), setPfp);
+
+  app.post("/user/setBackground/", background_upload.single('image'), setBackgroundPicture);
+
+  app.post("/user/setPfp/", pfp_upload.single('image'), setPfp);
+
 };

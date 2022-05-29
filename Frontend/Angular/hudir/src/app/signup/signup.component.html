@@ -1,0 +1,64 @@
+<div class='flex justify-center mt-32'>
+    <form 
+        class='bg-gray-500 shadow-md rounded px-8 pt-6 pb-8 mb-4' 
+        name="form"
+        (ngSubmit)="onSubmit()"
+        #f="ngForm"
+        novalidate
+    >
+        <div>
+            <label class='block text-gray-700 text-sm font-bold mb-2' htmlFor="email">Email</label>
+            <input 
+                [(ngModel)]="form.email"
+                #email="ngModel"
+                required 
+                type="email"
+                name="email"
+                placeholder="email"
+                class='rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+            />
+        </div>
+        <div>
+            <label class='block text-gray-700 text-sm font-bold mb-2' htmlFor="username">Username</label>
+            <input 
+                [(ngModel)]="form.username"
+                #username="ngModel"
+                required
+                type="text"
+                name="username"
+                placeholder="username"
+                class='rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+            />
+        </div>
+        <div>
+            <label class='block text-gray-700 text-sm font-bold mb-2' htmlFor="password">Password</label>
+            <input 
+                [(ngModel)]="form.password"
+                #password="ngModel"
+                required
+                type="password"
+                name="password"
+                id="password"
+                placeholder="password"
+                class='rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+            />
+        </div>
+        <div>
+            <label class='block text-gray-700 text-sm font-bold mb-2' htmlFor="confirm_password">Repeat password</label>
+            <input 
+                [(ngModel)]="form.confirm_password"
+                #confirm_password="ngModel"
+                required
+                type="password"
+                name="confirm_password"
+                placeholder="password"
+                id="confirm_password"
+                class='rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+            />
+        </div>     
+        <button class="bg-[#2a9fd6] hover:bg-[#0b73a0] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline mt-2" type="submit">Signup</button>
+        <div *ngIf="isSuccessful">
+            <span >User registered successfully!</span>
+        </div>
+    </form>
+</div>

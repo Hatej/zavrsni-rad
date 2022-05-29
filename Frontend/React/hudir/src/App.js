@@ -1,12 +1,15 @@
 import './App.css';
 import { useState, useEffect } from 'react';
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation, Navigate } from "react-router-dom";
 import AuthService from './services/auth.service';
 import Navbar from './components/Navbar';
 import Home from './components/Home';
 import Login from './components/Login';
 import Signup from './components/Signup';
 import User from './components/User';
+import Post from './components/Post';
+import Upload from './components/Upload';
+import NoRoute from './components/NoRoute';
 
 const parseJwt = (token) => {
   try {
@@ -48,12 +51,16 @@ function App() {
 
   return (
     <>
-      <Navbar currentUser={currentUser} logOut={logOut}></Navbar>
+      <Navbar currentUser={currentUser} logOut={logOut} ></Navbar>
       <Routes>
-        <Route currentUser={currentUser} path='/' element={<Home/>} />
+        <Route index element={<Home currentUser={currentUser} />} />
         <Route path='/login' element={<Login />} />
         <Route path='/signup' element={<Signup />} />
-        <Route currentUser={currentUser} path='/user/:name' element={<User />} />
+        <Route path='/user/:name' element={<User currentUser={currentUser} />} />
+        <Route path='/post/:postId' element={<Post currentUser={currentUser} />} />
+        <Route path='/upload' element={<Upload currentUser={currentUser} />} />
+        <Route path='/logout' element={ <Navigate to="/" /> } />
+        <Route path='*' element={<NoRoute />} />
       </Routes>
     </>    
   );

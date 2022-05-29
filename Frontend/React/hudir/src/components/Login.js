@@ -40,30 +40,38 @@ function Login(props){
     };
 
     return(
-        <form onSubmit={onSubmit}>
-            <label>
-                Username:
-                <input 
-                    required
-                    type="text"
-                    value={username}
-                    onChange={onChangeUsername}
-                    placeholder="username"
-                />
-            </label>
-            <label>
-                Password:
-                <input 
-                    required
-                    type="password"
-                    value={password}
-                    onChange={onChangePassword}
-                    placeholder="password"
-                />
-            </label>
-            <button type="submit">Login</button>
-            {error}
-        </form>
+        <div className='flex justify-center mt-32'>
+            <form className='bg-gray-500 shadow-md rounded px-8 pt-6 pb-8 mb-4' onSubmit={onSubmit}>
+                <div className='mb-4'>
+                    <label className='block text-gray-700 text-sm font-bold mb-2' htmlFor="username">Username</label>
+                    <input 
+                        required
+                        type="text"
+                        name="username"
+                        value={username}
+                        onChange={onChangeUsername}
+                        placeholder="username"
+                        className='rounded w-full py-2 px-3 text-gray-700 focus:outline-none focus:shadow-outline'
+                    />
+                </div>
+                <div>
+                    <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="password" >Password</label>
+                    <input 
+                        required
+                        type="password"
+                        name="password"
+                        value={password}
+                        onChange={onChangePassword}
+                        placeholder="password"
+                        className='class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline"'
+                    />
+                </div>
+                <button className="bg-[#2a9fd6] hover:bg-[#0b73a0] text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" type="submit">
+                Login
+                </button>
+                {error}
+            </form>
+        </div>   
     );
 }
 

@@ -1,8 +1,10 @@
+import Posts from "./Posts";
 
 function Home(props){
+
     return(
         <div>
-            Home
+            <Posts from="all" filter={props.filter}/>
         </div>
     );
 }

@@ -1,0 +1,12 @@
+<div class="flex flex-wrap mx-0">
+    <div *ngIf="loading">LOADING</div>
+    <ng-container *ngIf="!loading">
+        <div  *ngFor="let post of posts; index as i" [class]="number === -1 ? 'user-post-square' : 'more user-post-square'">
+            <div class="user-post">
+                <a [href]="'/post/'.concat(post.id)" class="w-full h-full"> 
+                    <app-image [image]="images[i]" className="min-w-full min-h-full object-cover"></app-image> 
+                </a>
+            </div>
+        </div>  
+    </ng-container>  
+</div>

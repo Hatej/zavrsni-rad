@@ -1,0 +1,16 @@
+.comment {
+    margin-top:2%;
+}
+
+.comment-picture {
+    width:50px; 
+    height:50px; 
+    display:inline;
+    margin-right: 1%;
+    border-radius:50%; 
+    object-fit:cover;
+}
+
+.comment-content {
+    margin-top: 10px;
+}

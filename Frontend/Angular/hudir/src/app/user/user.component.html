@@ -1,0 +1,41 @@
+<div>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css" integrity="sha384-5sAR7xN1Nv6T6+dT2mhtzEpVJvfS3NScPQTrOxhwjIuvcA67KV2R5Jz6kr4abQsz" crossOrigin="anonymous" />
+    <div id='background' class="background">
+        <form *ngIf="checkUser()">
+            <label class="background-change"><i class="fas fa-upload">
+                </i>&nbsp;Change&nbsp;background&nbsp;(1920x640+)
+                <input 
+                    type="file" 
+                    class="custom-file-input" 
+                    name="fileToUpload" 
+                    id="fileToUpload" 
+                    (change)="upload($event)"
+                />
+            </label>
+        </form>
+        <div class="md:container md:mx-auto justify-center profile_container">
+            <div *ngIf="checkUser()" class="flex justify-center">                        
+                <form>
+                    <label class="background-change"><i class="fas fa-upload">
+                        </i>&nbsp;Change&nbsp;profile picture&nbsp;
+                        <input 
+                            type="file" 
+                            class="custom-file-input" 
+                            name="pfpUpload" 
+                            id="pfpUpload" 
+                            (change)="upload($event)"
+                        />
+                    </label>
+                </form>
+            </div>
+            <div class="flex justify-center mb-3">
+                <app-image [endpoint]="'/user/pfp/'.concat(name)" className="profile_picture"></app-image>
+            </div>
+            <div class="flex justify-center">
+                <h2 class="username text-xl">{{name}}</h2>
+            </div>
+        </div>
+    </div>
+    <div class="separator"></div>
+    <app-posts from="user" [username]="name"></app-posts>
+</div>

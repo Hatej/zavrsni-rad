@@ -1,0 +1,123 @@
+<script defer src="../components/my-navbar.js"></script>
+<script defer src="../components/my-image.js"></script>
+<script defer src="../components/my-comment.js"></script>
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Post</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  </head>
+  <body>
+    <my-navbar></my-navbar>
+    <div class="flex flex-col-reverse md:flex-row md:min-h-screen">
+        <div class="left_side basis-9/12 mt-8">
+            <div class="flex justify-center">
+                <my-img endpoint="<%= '/post/getPostPicture/'.concat(postId) %>" className="post-picture"></my-img>
+            </div>
+            <br/>
+            <hr class="comment_separator" />
+            <div class="add-comment-container">
+                <div class="flex add-comment-form" id="add-comment-form">
+                    <my-img id="add-comment-user-img" className="profile_picture comment-picture"></my-img>
+                    <form class="w-4/5" id="comment-form">
+                        <div class="flex items-center border-b border-zinc-600 py-2">
+                        <textarea 
+                            type="text"
+                            name="comment"
+                            class="appearance-none bg-transparent border-none w-full h-7 text-[#f2f4f3] mr-3 py-1 px-2 leading-tight resize-none overflow-hidden"
+                            aria-label="Full name" 
+                            placeholder="Comment..."
+                            id="comment-text"
+                        ></textarea>
+                        <button class="flex-shrink-0 bg-[#2a9fd6] hover:bg-[#0b73a0] border-[#2a9fd6] hover:border-[#0b73a0] text-sm border-4 text-white py-1 px-2 rounded" type="submit">
+                            Comment
+                        </button>
+                        </div>
+                    </form>
+                </div>
+                <% if(comments.length !== 0) {%>
+                    <div class="comments-container">
+                        <% for(var i = 0; i < comments.length; i++) { %>
+                            <my-comment username="<%= comments[i].user.username %>" content="<%= comments[i].content %>"></my-comment>
+                        <% } %>
+                    </div>
+                <% } %>
+            </div>
+        </div>
+        <div class="right-side basis-3/12 px-4">
+            <div class="flex mt-6">
+                <my-img endpoint="<%= '/user/pfp/'.concat(post.user.username) %>" className="profile_picture small mr-2"></my-img>&nbsp;
+                <a href="<%='/user/'.concat(post.user.username)%>" class="text-2xl link"><%= post.user.username %></a>
+            </div>
+            <div class="mb-2 pb-2 description">
+                <p class="text-2xl"><%= post.name %></p>
+                <p class="text-zinc-400"><%= post.description %></p>
+            </div>
+            <div class="flex flex-col w-full">
+                <div class="hidden md:block">
+                    <span class="text-2xl">More by</span> &nbsp; <a href="<%= '/user/'.concat(post.user.username) %>" class="new-link text-2xl"><%= post.user.username %></a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="flex flex-wrap mx-0">
+                        <% for(var i = 0; i < posts.length; i++) { %>
+                            <div class="user-post-square <% if(number) { %> more <% } %>">
+                                <div class="user-post">
+                                    <a href="<%= '/post/'.concat(posts[i].id) %>" class="w-full h-full"> 
+                                        <my-img endpoint="<%= '/post/getPostPicture/'.concat(posts[i].id) %>" className="min-w-full min-h-full object-cover"></my-img> 
+                                    </a>
+                                </div>
+                            </div>
+                        <% } %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  </body>
+  <script>
+
+    let currentUser = JSON.parse(localStorage.getItem("user"));
+
+    function commentSubmit(e){
+        e.preventDefault();
+
+        var commentInput = document.getElementById('comment-text');
+
+        const data = {
+            content: commentInput.value,
+            userId: currentUser.id,
+            postId: '<%= postId %>'
+        };
+
+        axios.post("http://localhost:8080".concat('/comment/postComment/'), data)
+        .then(() => {
+            window.location.replace('/post/'.concat('<%= postId %>'));
+        })
+        .catch(err => {
+            console.log(err);
+        })
+    }
+
+    function auto_grow(e) {
+        e.target.style.height = "5px";
+        e.target.style.height = (e.target.scrollHeight)+"px";
+    }
+
+    if(!currentUser){
+        let commentForm = document.getElementById('add-comment-form');
+        commentForm.style.display = "none";
+    } else {
+        let commentPicture = document.getElementById('add-comment-user-img');
+        commentPicture.setAttribute('endpoint', '/user/pfp/'.concat(currentUser.username));
+
+        var commentForm = document.getElementById('comment-form');
+        var commentInput = document.getElementById('comment-text');
+
+        commentInput.addEventListener('input', auto_grow);
+        commentForm.addEventListener('submit', commentSubmit);
+    }
+</script>
+</html>

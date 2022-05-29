@@ -1,7 +1,7 @@
 export default (sequelize, Sequelize) => {
     const Post = sequelize.define("posts", {
       id: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         primaryKey: true
       },
       name: {
@@ -14,7 +14,8 @@ export default (sequelize, Sequelize) => {
           type: Sequelize.STRING
       },
       likes: {
-          type: Sequelize.INTEGER
+          type: Sequelize.INTEGER,
+          defaultValue: 0 
       }
     });
     return Post;

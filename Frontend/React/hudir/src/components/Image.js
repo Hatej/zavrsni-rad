@@ -7,9 +7,10 @@ function Image(props) {
     const [source, setSource] = useState(null);
 
     useEffect(() => {
-        axios
+        if(props.endpoint !== undefined){
+            axios
             .get(
-                BACKEND_URL.concat(props.endpoint).concat(props.username),
+                BACKEND_URL.concat(props.endpoint),
                 { responseType: 'arraybuffer'},
             )
             .then(response => {
@@ -21,10 +22,20 @@ function Image(props) {
                 );
                 setSource("data:;base64," + base64);
             });
+        }
+        if(props.image !== undefined){
+            const base64 = btoa(
+                new Uint8Array(props.image).reduce(
+                    (data, byte) => data + String.fromCharCode(byte),
+                    '',
+                ),
+            );
+            setSource("data:;base64," + base64);
+        }
     }, []);
 
     return(
-        <img src={source} />
+        <img src={source} className={props.className} />
     );
 
 }

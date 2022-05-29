@@ -1,0 +1,85 @@
+body {
+    background-color: black;
+}
+
+.small {
+    width:60px; 
+    height:60px; 
+}
+
+.extra-small {
+    width: 30px;
+    height: 30px;
+}
+
+.left_side {
+    color:#f2f4f3; 
+    background-color: black;
+}
+
+.description {
+    margin-top: 2%;
+    border-bottom: 1px solid #333;
+}
+
+.comment_separator {
+    border-color: #515151;
+    margin-top: 1%;
+    margin-bottom: 1%;
+}
+
+.comments-container {
+    margin-bottom:5%; 
+    margin-left:1%;
+}
+
+.add-comment-container {
+    margin-left: 1%;
+}
+
+.add-comment-form {
+    margin-bottom: 5%;
+}
+
+.right-side {
+    background-color:#171717;
+    color:#f2f4f3;
+}
+
+.post-picture {
+    max-height: 800px;
+}
+
+.link {
+    color:#2a9fd6;
+    animation: post_link_unhover 0.3s;
+}
+
+.link:hover {
+    color:#0b73a0;
+    animation: post_link_hover 0.3s;
+}
+
+.new-link {
+    color: #f2f2f2;
+    animation: link_unhover 0.3s;
+}
+
+.new-link:hover {
+    color:#2a9fd6;
+    animation: link_hover 0.3s;
+}
+
+@keyframes post_link_hover{ 
+    from {color: #2a9fd6;} 
+    to {color:#0b73a0;}
+}
+
+@keyframes post_link_unhover {
+    from {color:#0b73a0};
+    to {color: #2a9fd6;}
+}
+
+@media screen and (max-width: 992px) {
+    
+}
